@@ -81,9 +81,6 @@ def ldist(s, t, costs=(1, 1, 1)):
     
     return dist[row][col]
 
-freetext = "polachek"
-country = "US"
-attr = "artistTerm"
 
 
 def download_albumart(freetext, albumtitle, attr="all", country="US", ext=".png", verbose=True):

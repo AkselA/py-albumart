@@ -1,31 +1,23 @@
 #!/bin/bash
 
+co="albumart.py"
+lc="/usr/local/bin/"
+
+ex="${lc}${co%.*}"
+
 cd "$( dirname "${BASH_SOURCE[0]}" )"
 
-chmod a+x "array2csv.sh"
+chmod a+x "$co"
 
-var='"File"; "Codec"; "Sample format"; "Sample rate"
-"track 1.m4a"; "aac"; "fltp"; "44100"
-"track 2.mp3"; "mp3"; "fltp"; "48000"
-'
-
-arr1=("File"        "Codec" "Sample format" "Sample rate" 
-      "track 1.m4a" "aac"   "fltp"          "44100"
-      "track 2.mp3" "mp3"   "fltp"          "48000")
-
-if cp "array2csv.sh" "/usr/local/bin/array2csv"
+if cp "$co" "$ex"
 then
-    if . array2csv -a arr1[@] -n 4 -q -s "; " -o /tmp/test.csv \
-        && diff /tmp/test.csv <(printf "%s" "$var")
-    then
-        printf "%s\n" "Successfully installed '/usr/local/bin/array2csv'"
-    else
-        printf "%s\n" "Error trying to run test"
-    fi
+    printf "%s\n" "Successfully installed '$ex'"
+    exit 0
 else
-    printf "%s\n" "Failure" \
-           "Error copying file, try running install script as sudo"
-    sleep 
+    printf "%s\n" "Something seems to have gone wrong while trying to install '$ex'" \
+                  "Does '$co' exist in the same directory as this install script?" \
+                  "Is '$lc' a valid directory?"
+                  "Doe you have the required permission (maybe try 'sudo')?"
     exit 1
 fi
 
